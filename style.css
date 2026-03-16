@@ -1,0 +1,6 @@
+body { font-family: sans-serif; background-color: #f4f4f4; }
+table { width: 100%; border-collapse: collapse; background: white; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: center; font-size: 12px; }
+th { background-color: #000; color: white; }
+tr:nth-child(even) { background-color: #f2f2f2; }
+.time-slot { font-weight: bold; background-color: #eee; }
