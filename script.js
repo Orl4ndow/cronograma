@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBE7xBpq8NT1SD_jDT3aFHewh-htlp5msQ",
@@ -7,52 +7,64 @@ const firebaseConfig = {
     projectId: "cronograma-173c9",
     storageBucket: "cronograma-173c9.firebasestorage.app",
     messagingSenderId: "819169022068",
-    appId: "1:819169022068:web:b0e5a147b578c1af548121",
-    measurementId: "G-QDYJHBV6FL"
+    appId: "1:819169022068:web:b0e5a147b578c1af548121"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const horarios = ["M1", "M2", "M3", "M4", "M5", "M6", "T1", "T2", "T3", "T4", "T5", "T6", "N1", "N2", "N3"];
-const dias = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
-
-// Escuta o banco de dados em tempo real
-function carregarDados() {
-    onSnapshot(collection(db, "atividades"), (snapshot) => {
-        const aulas = [];
-        snapshot.forEach(doc => aulas.push(doc.data()));
-        renderizarTabela(aulas);
-        document.getElementById('status-firebase').innerText = "Sincronizado com Firebase";
-    });
+// --- NAVEGAÇÃO ---
+window.switchTab = (tab) => {
+    document.getElementById('section-agenda').style.display = tab === 'agenda' ? 'block' : 'none';
+    document.getElementById('section-fixo').style.display = tab === 'fixo' ? 'block' : 'none';
+    document.getElementById('tab-agenda').classList.toggle('active', tab === 'agenda');
+    document.getElementById('tab-fixo').classList.toggle('active', tab === 'fixo');
 }
 
-function renderizarTabela(aulas) {
-    const tbody = document.getElementById('schedule-body');
-    tbody.innerHTML = "";
+// --- LÓGICA DO CALENDÁRIO MENSAL ---
+let date = new Date();
+function renderCalendar() {
+    const grid = document.getElementById('calendar-grid');
+    grid.innerHTML = "";
+    
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    document.getElementById('current-month').innerText = `${date.toLocaleString('pt-br', { month: 'long' })} ${year}`;
 
+    // Lógica para gerar os dias (simplificada)
+    for (let i = 1; i <= 31; i++) {
+        const day = document.createElement('div');
+        day.className = 'day-card';
+        day.innerHTML = `<strong>${i}</strong><div id="events-${i}"></div>`;
+        day.onclick = () => openModal(i);
+        grid.appendChild(day);
+    }
+}
+
+// --- CRONOGRAMA FIXO UERJ ---
+const horarios = ["M1", "M2", "M3", "M4", "M5", "M6", "T1", "T2", "T3", "T4", "T5", "T6", "N1", "N2", "N3"];
+function renderFixo() {
+    const body = document.getElementById('fixed-body');
+    body.innerHTML = "";
     horarios.forEach(h => {
         const tr = document.createElement('tr');
-        
-        // Coluna do Horário
-        const tdHorario = document.createElement('td');
-        tdHorario.classList.add('time-slot');
-        tdHorario.innerText = h;
-        tr.appendChild(tdHorario);
-
-        // Colunas dos Dias
-        dias.forEach(d => {
-            const td = document.createElement('td');
-            const aula = aulas.find(a => a.dia === d && a.horario === h);
-            
-            if (aula) {
-                td.innerHTML = `<div class="materia-card">${aula.materia}</div>`;
-            }
-            tr.appendChild(td);
-        });
-
-        tbody.appendChild(tr);
+        tr.innerHTML = `<td>${h}</td><td></td><td></td><td></td><td></td><td></td>`;
+        body.appendChild(tr);
     });
 }
 
-carregarDados();
+// --- FUNÇÕES FIREBASE ---
+window.saveEvent = async () => {
+    const title = document.getElementById('event-title').value;
+    if(!title) return;
+    
+    await addDoc(collection(db, "agenda"), {
+        titulo: title,
+        data: new Date(),
+        usuario: "Orlando"
+    });
+    closeModal();
+}
+
+renderCalendar();
+renderFixo();
