@@ -3,31 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronograma UERJ - Orlando</title>
+    <title>Agenda Personalizada - Orlando</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Cronograma Fixo - Engenharia</h1>
-            <p id="status-firebase">Conectando ao Firestore...</p>
-        </header>
+    <nav class="sidebar">
+        <div class="user-profile">
+            <div class="avatar">O</div>
+            <span>Orlando</span>
+        </div>
+        <ul>
+            <li onclick="switchTab('agenda')" id="tab-agenda" class="active"><i class="fa-solid fa-calendar-days"></i> Agenda Mensal</li>
+            <li onclick="switchTab('fixo')" id="tab-fixo"><i class="fa-solid fa- graduation-cap"></i> Cronograma Engenharia</li>
+        </ul>
+    </nav>
 
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tempo</th>
-                        <th>Segunda</th>
-                        <th>Terça</th>
-                        <th>Quarta</th>
-                        <th>Quinta</th>
-                        <th>Sexta</th>
-                    </tr>
-                </thead>
-                <tbody id="schedule-body">
-                    </tbody>
-            </table>
+    <main class="content">
+        <section id="section-agenda">
+            <header class="main-header">
+                <h2 id="current-month">Março 2026</h2>
+                <div class="actions">
+                    <button onclick="changeMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button onclick="changeMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </header>
+            <div id="calendar-grid" class="calendar-grid"></div>
+        </section>
+
+        <section id="section-fixo" style="display: none;">
+            <header class="main-header">
+                <h2>Cronograma Fixo - Engenharia</h2>
+                <button class="btn-add" onclick="addMateria()">+ Adicionar Matéria</button>
+            </header>
+            <div class="table-wrapper">
+                <table id="fixed-table">
+                    <thead>
+                        <tr>
+                            <th>Tempo</th>
+                            <th>Segunda</th>
+                            <th>Terça</th>
+                            <th>Quarta</th>
+                            <th>Quinta</th>
+                            <th>Sexta</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fixed-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3>Novo Compromisso</h3>
+            <input type="text" id="event-title" placeholder="O que vamos fazer?">
+            <button onclick="saveEvent()">Salvar</button>
+            <button onclick="closeModal()">Cancelar</button>
         </div>
     </div>
 
