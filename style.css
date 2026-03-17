@@ -105,6 +105,17 @@ td { height: 50px; cursor: pointer; }
     cursor: pointer;
 }
 
+.event-item {
+    font-size: 0.65rem;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-bottom: 2px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-left: 3px solid rgba(0,0,0,0.2); /* Dá um detalhe de profundidade */
+}
 .event-item:hover {
     background: #ef4444; /* Fica vermelho ao passar o mouse para indicar que pode apagar */
     color: white;
