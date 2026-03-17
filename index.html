@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda</title>
+    <title>Agenda v5</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -21,6 +21,15 @@
 
     <main class="content">
         <section id="section-agenda">
+            <div class="dashboard-hoje">
+                <div class="stat-card">
+                    <span id="label-hoje">Eventos para hoje: 0</span>
+                    <div class="progress-bar-container">
+                        <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
             <header class="main-header">
                 <h2 id="current-month">Março 2026</h2>
                 <div class="actions">
@@ -34,10 +43,9 @@
         <section id="section-fixo" style="display: none;">
             <header class="main-header">
                 <h2>Cronograma Fixo - Engenharia</h2>
-                <small style="color: var(--accent);">Clique em uma célula para gerenciar as matérias</small>
             </header>
             <div class="table-wrapper">
-                <table id="fixed-table">
+                <table>
                     <thead>
                         <tr>
                             <th>Tempo</th>
@@ -55,24 +63,25 @@
     </main>
 
     <div id="modal" class="modal">
-    <div class="modal-content">
-        <h3>Novo Compromisso</h3>
-        <input type="text" id="event-title" placeholder="O que vamos fazer?">
-        
-        <label style="font-size: 0.8rem; color: #ccc;">Categoria:</label>
-        <select id="event-category" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; background: #374151; color: white; border: 1px solid #4b5563;">
-            <option value="#38bdf8">Estudo (Azul)</option>
-            <option value="#facc15">Trabalho (Amarelo)</option>
-            <option value="#f87171">Pessoal (Vermelho)</option>
-            <option value="#4ade80">Apartamento (Verde)</option>
-        </select>
+        <div class="modal-content">
+            <h3>Novo Compromisso</h3>
+            <input type="text" id="event-title" placeholder="O que vamos fazer?">
+            
+            <label>Categoria:</label>
+            <select id="event-category">
+                <option value="#38bdf8">Estudo (Azul)</option>
+                <option value="#facc15">Trabalho (Amarelo)</option>
+                <option value="#f87171">Pessoal (Vermelho)</option>
+                <option value="#4ade80">Apartamento (Verde)</option>
+            </select>
 
-        <div style="display: flex; gap: 10px; margin-top: 10px;">
-            <button onclick="saveEvent()" style="flex: 1; background: var(--accent); border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold;">Salvar</button>
-            <button onclick="closeModal()" style="flex: 1; background: #6b7280; border: none; padding: 10px; border-radius: 5px; cursor: pointer; color: white;">Cancelar</button>
+            <div class="modal-buttons">
+                <button onclick="saveEvent()" class="btn-save">Salvar</button>
+                <button onclick="closeModal()" class="btn-cancel">Cancelar</button>
+            </div>
         </div>
     </div>
-</div>
+
     <script type="module" src="script.js"></script>
 </body>
 </html>
