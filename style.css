@@ -52,3 +52,30 @@ th, td { border: 1px solid var(--border); padding: 10px; text-align: center; }
     .sidebar ul { display: flex; gap: 10px; overflow-x: auto; }
     .calendar-grid { grid-template-columns: repeat(4, 1fr); }
 }
+/* ... seus estilos anteriores ... */
+
+/* Estilos para o Checklist */
+.task-input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+.task-input-group input { flex: 1; background: var(--card-bg); border: 1px solid var(--border); color: white; padding: 12px; border-radius: 8px; }
+.task-input-group button { background: var(--accent); border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; }
+
+.task-list { list-style: none; padding: 0; }
+.task-item { 
+    background: var(--card-bg); 
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-bottom: 10px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    border: 1px solid var(--border);
+}
+.task-item.done span { text-decoration: line-through; opacity: 0.5; }
+.task-item i { color: #f87171; cursor: pointer; }
+.task-item span { cursor: pointer; flex: 1; }
+
+/* Correção Tabela Mobile */
+@media (max-width: 768px) {
+    .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { min-width: 800px; } /* Garante que a tabela não esprema as matérias */
+}
