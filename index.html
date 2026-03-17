@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda Orlando</title>
+    <title>Agenda & Tasks - Orlando</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -16,6 +16,7 @@
         <ul>
             <li onclick="switchTab('agenda')" id="tab-agenda" class="active"><i class="fa-solid fa-calendar-days"></i> Agenda Mensal</li>
             <li onclick="switchTab('fixo')" id="tab-fixo"><i class="fa-solid fa-graduation-cap"></i> Cronograma Engenharia</li>
+            <li onclick="switchTab('tasks')" id="tab-tasks"><i class="fa-solid fa-list-check"></i> Checklist</li>
         </ul>
     </nav>
 
@@ -29,7 +30,6 @@
                     </div>
                 </div>
             </div>
-
             <header class="main-header">
                 <h2 id="current-month">Março 2026</h2>
                 <div class="actions">
@@ -60,13 +60,23 @@
                 </table>
             </div>
         </section>
+
+        <section id="section-tasks" style="display: none;">
+            <header class="main-header">
+                <h2>Checklist de Tarefas</h2>
+            </header>
+            <div class="task-input-group">
+                <input type="text" id="new-task-input" placeholder="Nova tarefa...">
+                <button onclick="addTask()"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <ul id="task-list" class="task-list"></ul>
+        </section>
     </main>
 
     <div id="modal" class="modal">
         <div class="modal-content">
             <h3>Novo Compromisso</h3>
             <input type="text" id="event-title" placeholder="O que vamos fazer?">
-            
             <label>Categoria:</label>
             <select id="event-category">
                 <option value="#38bdf8">Estudo (Azul)</option>
@@ -74,7 +84,6 @@
                 <option value="#f87171">Pessoal (Vermelho)</option>
                 <option value="#4ade80">Apartamento (Verde)</option>
             </select>
-
             <div class="modal-buttons">
                 <button onclick="saveEvent()" class="btn-save">Salvar</button>
                 <button onclick="closeModal()" class="btn-cancel">Cancelar</button>
