@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda & Tasks - Orlando</title>
+    <title>Agenda Engenharia - Orlando</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -15,7 +15,7 @@
         </div>
         <ul>
             <li onclick="switchTab('agenda')" id="tab-agenda" class="active"><i class="fa-solid fa-calendar-days"></i> Agenda Mensal</li>
-            <li onclick="switchTab('fixo')" id="tab-fixo"><i class="fa-solid fa-graduation-cap"></i> Cronograma Engenharia</li>
+            <li onclick="switchTab('fixo')" id="tab-fixo"><i class="fa-solid fa-graduation-cap"></i> Cronograma UERJ</li>
             <li onclick="switchTab('tasks')" id="tab-tasks"><i class="fa-solid fa-list-check"></i> Checklist</li>
         </ul>
     </nav>
@@ -48,7 +48,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Tempo</th>
+                            <th class="sticky-col">Tempo</th>
                             <th>Segunda</th>
                             <th>Terça</th>
                             <th>Quarta</th>
@@ -65,8 +65,18 @@
             <header class="main-header">
                 <h2>Checklist de Tarefas</h2>
             </header>
+            <div class="summary-container">
+                <div class="summary-item">
+                    <span class="summary-label">Concluídas</span>
+                    <span id="tasks-done" class="summary-value">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Pendentes</span>
+                    <span id="tasks-pending" class="summary-value">0</span>
+                </div>
+            </div>
             <div class="task-input-group">
-                <input type="text" id="new-task-input" placeholder="Nova tarefa...">
+                <input type="text" id="new-task-input" placeholder="Nova tarefa semanal...">
                 <button onclick="addTask()"><i class="fa-solid fa-plus"></i></button>
             </div>
             <ul id="task-list" class="task-list"></ul>
@@ -77,7 +87,6 @@
         <div class="modal-content">
             <h3>Novo Compromisso</h3>
             <input type="text" id="event-title" placeholder="O que vamos fazer?">
-            <label>Categoria:</label>
             <select id="event-category">
                 <option value="#38bdf8">Estudo (Azul)</option>
                 <option value="#facc15">Trabalho (Amarelo)</option>
