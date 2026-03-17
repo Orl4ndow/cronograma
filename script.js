@@ -24,7 +24,7 @@ window.switchTab = (tab) => {
     document.getElementById('tab-fixo').classList.toggle('active', tab === 'fixo');
 };
 
-// --- AGENDA MENSAL ---
+// --- RENDERIZAR CALENDÁRIO COM CORES ---
 function renderCalendar() {
     const grid = document.getElementById('calendar-grid');
     if(!grid) return;
@@ -32,7 +32,6 @@ function renderCalendar() {
     
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    
     document.getElementById('current-month').innerText = 
         new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(currentDate);
 
@@ -43,14 +42,13 @@ function renderCalendar() {
         grid.innerHTML += `<div class="day-card empty"></div>`;
     }
 
-    // Buscar eventos do mês atual no Firebase
     onSnapshot(collection(db, "eventos_agenda"), (snapshot) => {
         const todosEventos = [];
         snapshot.forEach(doc => todosEventos.push({ id: doc.id, ...doc.data() }));
         
-        // Limpar apenas os dias para não duplicar na renderização real-time
-        const dayCards = document.querySelectorAll('.day-card:not(.empty)');
-        dayCards.forEach(card => card.remove());
+        // Limpar dias existentes para re-renderizar
+        const existingDays = grid.querySelectorAll('.day-card:not(.empty)');
+        existingDays.forEach(d => d.remove());
 
         for (let day = 1; day <= daysInMonth; day++) {
             const dateStr = `${year}-${month + 1}-${day}`;
@@ -64,6 +62,10 @@ function renderCalendar() {
                 const evDiv = document.createElement('div');
                 evDiv.className = 'event-item';
                 evDiv.innerText = ev.titulo;
+                // Aplica a cor salva no Firebase
+                evDiv.style.backgroundColor = ev.cor || '#38bdf8'; 
+                evDiv.style.color = '#000'; // Mantém o texto legível
+                
                 evDiv.onclick = (e) => {
                     e.stopPropagation();
                     removerEvento(ev.id);
@@ -76,7 +78,6 @@ function renderCalendar() {
         }
     });
 }
-
 // --- MODAL E EVENTOS ---
 window.abrirModal = (day) => {
     selectedDay = day;
@@ -88,21 +89,27 @@ window.closeModal = () => {
     document.getElementById('event-title').value = "";
 };
 
+// --- SALVAR EVENTO COM COR ---
 window.saveEvent = async () => {
     const titulo = document.getElementById('event-title').value;
+    const cor = document.getElementById('event-category').value; // Pega a cor selecionada
+    
     if (!titulo) return;
 
     const dateStr = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${selectedDay}`;
 
-    await addDoc(collection(db, "eventos_agenda"), {
-        titulo: titulo,
-        data: dateStr,
-        criadoEm: new Date()
-    });
-
-    closeModal();
+    try {
+        await addDoc(collection(db, "eventos_agenda"), {
+            titulo: titulo,
+            data: dateStr,
+            cor: cor, // Salva a cor no Firebase
+            criadoEm: new Date()
+        });
+        closeModal();
+    } catch (error) {
+        console.error("Erro ao salvar evento:", error);
+    }
 };
-
 async function removerEvento(id) {
     if (confirm("Remover este compromisso?")) {
         await deleteDoc(doc(db, "eventos_agenda", id));
