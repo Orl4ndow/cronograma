@@ -87,3 +87,16 @@ th { background: #111827; }
     place-items: center;
 }
 .modal-content { background: var(--card-bg); padding: 30px; border-radius: 12px; }
+
+td {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+td:hover {
+    background-color: rgba(59, 130, 246, 0.1); /* Um leve azul ao passar o mouse */
+}
+
+.materia-card {
+    pointer-events: none; /* Garante que o clique passe direto para a célula TD */
+}
