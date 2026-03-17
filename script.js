@@ -1,70 +1,79 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getFirestore, collection, onSnapshot, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
+// Credenciais atualizadas conforme seu print
 const firebaseConfig = {
-    apiKey: "AIzaSyBE7xBpq8NT1SD_jDT3aFHewh-htlp5msQ",
-    authDomain: "cronograma-173c9.firebaseapp.com",
-    projectId: "cronograma-173c9",
-    storageBucket: "cronograma-173c9.firebasestorage.app",
-    messagingSenderId: "819169022068",
-    appId: "1:819169022068:web:b0e5a147b578c1af548121"
+  apiKey: "AIzaSyBE7xBpq8NT1SD_jDT3aFHewh-htlp5msQ",
+  authDomain: "cronograma-173c9.firebaseapp.com",
+  projectId: "cronograma-173c9",
+  storageBucket: "cronograma-173c9.firebasestorage.app",
+  messagingSenderId: "819169022068",
+  appId: "1:819169022068:web:407ad2627d0250ee548121", // ID Atualizado do seu print
+  measurementId: "G-71X9KYC4D2"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// --- NAVEGAÇÃO ---
+const horarios = ["M1", "M2", "M3", "M4", "M5", "M6", "T1", "T2", "T3", "T4", "T5", "T6", "N1", "N2", "N3"];
+const dias = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
+
+// Alternar Abas
 window.switchTab = (tab) => {
     document.getElementById('section-agenda').style.display = tab === 'agenda' ? 'block' : 'none';
     document.getElementById('section-fixo').style.display = tab === 'fixo' ? 'block' : 'none';
     document.getElementById('tab-agenda').classList.toggle('active', tab === 'agenda');
     document.getElementById('tab-fixo').classList.toggle('active', tab === 'fixo');
-}
+};
 
-// --- LÓGICA DO CALENDÁRIO MENSAL ---
-let date = new Date();
-function renderCalendar() {
-    const grid = document.getElementById('calendar-grid');
-    grid.innerHTML = "";
+// Carregar Cronograma Fixo da UERJ
+function carregarCronogramaFixo() {
+    const colRef = collection(db, "cronograma_fixo");
     
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    document.getElementById('current-month').innerText = `${date.toLocaleString('pt-br', { month: 'long' })} ${year}`;
-
-    // Lógica para gerar os dias (simplificada)
-    for (let i = 1; i <= 31; i++) {
-        const day = document.createElement('div');
-        day.className = 'day-card';
-        day.innerHTML = `<strong>${i}</strong><div id="events-${i}"></div>`;
-        day.onclick = () => openModal(i);
-        grid.appendChild(day);
-    }
+    // Escuta em tempo real
+    onSnapshot(colRef, (snapshot) => {
+        const aulas = [];
+        snapshot.forEach(doc => aulas.push(doc.data()));
+        renderizarTabelaFixo(aulas);
+    });
 }
 
-// --- CRONOGRAMA FIXO UERJ ---
-const horarios = ["M1", "M2", "M3", "M4", "M5", "M6", "T1", "T2", "T3", "T4", "T5", "T6", "N1", "N2", "N3"];
-function renderFixo() {
-    const body = document.getElementById('fixed-body');
-    body.innerHTML = "";
+function renderizarTabelaFixo(aulas) {
+    const tbody = document.getElementById('fixed-body');
+    if(!tbody) return;
+    tbody.innerHTML = "";
+
     horarios.forEach(h => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${h}</td><td></td><td></td><td></td><td></td><td></td>`;
-        body.appendChild(tr);
+        tr.innerHTML = `<td class="time-slot">${h}</td>`;
+        
+        dias.forEach(d => {
+            const aula = aulas.find(a => a.dia === d && a.horario === h);
+            const conteudo = aula ? `<div class="materia-card">${aula.materia}</div>` : "";
+            tr.innerHTML += `<td onclick="promptNovaMateria('${d}', '${h}')">${conteudo}</td>`;
+        });
+        tbody.appendChild(tr);
     });
 }
 
-// --- FUNÇÕES FIREBASE ---
-window.saveEvent = async () => {
-    const title = document.getElementById('event-title').value;
-    if(!title) return;
-    
-    await addDoc(collection(db, "agenda"), {
-        titulo: title,
-        data: new Date(),
-        usuario: "Orlando"
-    });
-    closeModal();
-}
+// Função para adicionar matéria clicando na célula
+window.promptNovaMateria = async (dia, horario) => {
+    const materia = prompt(`Adicionar matéria para ${dia} às ${horario}:`);
+    if (materia) {
+        try {
+            await addDoc(collection(db, "cronograma_fixo"), {
+                dia: dia,
+                horario: horario,
+                materia: materia,
+                usuario: "Orlando"
+            });
+        } catch (e) {
+            console.error("Erro ao salvar: ", e);
+            alert("Erro ao salvar! Verifique as regras do Firebase.");
+        }
+    }
+};
 
-renderCalendar();
-renderFixo();
+// Inicialização
+carregarCronogramaFixo();
+// Se tiver a função de calendário, chame-a aqui também
