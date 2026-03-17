@@ -86,6 +86,40 @@ td { height: 50px; cursor: pointer; }
     .content { padding: 15px; }
     h2 { font-size: 1.2rem; }
 }
+.event-list {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.event-item {
+    background: var(--accent);
+    color: #000;
+    font-size: 0.65rem;
+    padding: 2px 4px;
+    border-radius: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.event-item:hover {
+    background: #ef4444; /* Fica vermelho ao passar o mouse para indicar que pode apagar */
+    color: white;
+}
+
+/* Garante que o modal apareça centralizado */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 2000;
+    place-items: center;
+}
 
 /* Modal */
 .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index: 1000; place-items: center; }
