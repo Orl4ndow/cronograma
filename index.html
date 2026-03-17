@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda v3</title>
+    <title>Agenda v3 - Orlando</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -15,7 +15,7 @@
         </div>
         <ul>
             <li onclick="switchTab('agenda')" id="tab-agenda" class="active"><i class="fa-solid fa-calendar-days"></i> Agenda Mensal</li>
-            <li onclick="switchTab('fixo')" id="tab-fixo"><i class="fa-solid fa- graduation-cap"></i> Cronograma Engenharia</li>
+            <li onclick="switchTab('fixo')" id="tab-fixo"><i class="fa-solid fa-graduation-cap"></i> Cronograma Engenharia</li>
         </ul>
     </nav>
 
@@ -34,7 +34,7 @@
         <section id="section-fixo" style="display: none;">
             <header class="main-header">
                 <h2>Cronograma Fixo - Engenharia</h2>
-                <button class="btn-add" onclick="addMateria()">+ Adicionar Matéria</button>
+                <small style="color: var(--accent);">Clique em uma célula para gerenciar as matérias</small>
             </header>
             <div class="table-wrapper">
                 <table id="fixed-table">
