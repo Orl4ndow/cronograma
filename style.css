@@ -7,172 +7,70 @@
     --border: #334155;
 }
 
-* { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
-    font-family: 'Inter', sans-serif; 
-}
+* { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { display: flex; margin: 0; min-height: 100vh; background: var(--main-bg); color: var(--text); }
 
-body {
-    display: flex;
-    min-height: 100vh;
-    background: var(--main-bg);
-    color: var(--text);
-}
-
-/* --- BARRA LATERAL (DESKTOP) --- */
-.sidebar {
-    width: 250px;
-    background: var(--sidebar-bg);
-    padding: 20px;
-    border-right: 1px solid var(--border);
-    flex-shrink: 0;
-}
-
+/* Sidebar */
+.sidebar { width: 250px; background: var(--sidebar-bg); padding: 20px; border-right: 1px solid var(--border); flex-shrink: 0; }
 .user-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 30px; }
 .avatar { width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: grid; place-items: center; font-weight: bold; color: #000; }
-
-.sidebar ul { list-style: none; }
-.sidebar li {
-    padding: 12px;
-    cursor: pointer;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+.sidebar ul { list-style: none; padding: 0; }
+.sidebar li { padding: 12px; cursor: pointer; border-radius: 8px; margin-bottom: 8px; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
 .sidebar li.active, .sidebar li:hover { background: var(--accent); color: #000; }
 
-/* --- CONTEÚDO PRINCIPAL --- */
-.content { 
-    flex: 1; 
-    padding: 20px; 
-    overflow-x: hidden; /* Impede que o corpo do site scrolle para o lado, apenas a tabela */
-}
+/* Main Content */
+.content { flex: 1; padding: 20px; overflow-x: hidden; }
 
-.main-header { margin-bottom: 20px; }
-
-/* --- TABELA E SCROLL DEFINITIVO --- */
-.table-wrapper { 
-    overflow-x: auto; 
-    background: var(--card-bg); 
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    -webkit-overflow-scrolling: touch;
-}
-
-table { 
-    width: 100%; 
-    border-collapse: separate; 
-    border-spacing: 0;
-    table-layout: fixed; /* Força o navegador a respeitar as larguras que definirmos */
-    min-width: 450px; /* Reduzido para caber mais colunas no scroll */
-}
-
-th, td { 
-    border: 0.5px solid var(--border); 
-    padding: 4px; /* Padding mínimo */
-    text-align: center; 
-    height: 45px;
-    word-wrap: break-word;
-    font-size: 0.7rem;
-}
-
-th { background: #000; color: var(--text); font-weight: bold; }
-
-/* --- COLUNA FIXA COMPACTA --- */
-.sticky-col, 
-td:first-child {
-    position: sticky;
-    left: 0;
-    background-color: #111827 !important;
-    z-index: 10;
-    font-weight: bold;
-    font-size: 0.6rem;
-    width: 70px; /* Largura reduzida para ganhar espaço */
-    min-width: 70px;
-    border-right: 2px solid var(--accent) !important;
-}
-
-th.sticky-col { z-index: 11; }
-
-/* --- CARDS DE MATÉRIA MINI --- */
-.materia-card {
-    padding: 2px;
-    border-radius: 3px;
-    color: #000;
-    font-weight: bold;
-    font-size: 0.6rem; /* Fonte pequena para não quebrar layout */
-    line-height: 1;
-    display: block;
-}
-
-/* --- MEDIA QUERY MOBILE AGRESSIVA --- */
-@media (max-width: 768px) {
-    .content { padding: 5px; }
-    
-    table { min-width: 400px; } /* Quase o tamanho da tela de um celular moderno */
-    
-    th, td { 
-        padding: 2px; 
-        font-size: 0.65rem;
-    }
-
-    .sticky-col, td:first-child {
-        width: 60px; /* Ainda menor no mobile */
-        min-width: 60px;
-        font-size: 0.55rem;
-    }
-}
-/* --- DASHBOARD E SUMMARY --- */
-.dashboard-hoje, .summary-container {
-    background: var(--card-bg);
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    border: 1px solid var(--border);
-    display: flex;
-    gap: 15px;
-}
-
-.summary-item { flex: 1; text-align: center; }
-.summary-value { font-size: 1.5rem; font-weight: bold; color: var(--accent); display: block; }
-.progress-bar-container { width: 100%; height: 8px; background: #334155; border-radius: 10px; margin-top: 8px; overflow: hidden; }
+/* Dashboard & Progress */
+.dashboard-hoje { background: var(--card-bg); padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border); }
+.progress-bar-container { width: 100%; height: 10px; background: #334155; border-radius: 10px; margin-top: 10px; overflow: hidden; }
 .progress-fill { height: 100%; background: var(--accent); transition: width 0.5s ease; }
 
-/* --- AJUSTES CELULAR (MOBILE) --- */
-@media (max-width: 768px) {
-    body { flex-direction: column; }
-    
-    .sidebar { 
-        width: 100%; 
-        border-right: none; 
-        border-bottom: 1px solid var(--border); 
-        padding: 10px;
-    }
-    
-    .sidebar ul { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; }
-    .sidebar li { margin-bottom: 0; white-space: nowrap; padding: 8px 12px; font-size: 0.8rem; }
-    
-    .content { padding: 10px; }
-    
-    table { min-width: 500px; } /* Menor que no desktop para ser mais compacto */
-    
-    th, td { 
-        padding: 6px; 
-        font-size: 0.7rem; 
-        height: 50px;
-    }
+/* Calendar Grid */
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 20px; }
+.day-card { background: var(--card-bg); min-height: 100px; padding: 8px; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; }
+.day-card.today { border: 2px solid var(--accent); }
+.event-item { font-size: 0.65rem; padding: 2px 5px; border-radius: 3px; font-weight: 600; color: #000; margin-bottom: 2px; }
 
-    .sticky-col, td:first-child {
-        min-width: 75px; /* Coluna Tempo um pouco menor no mobile */
-        font-size: 0.65rem;
-    }
+/* Sticky Table */
+.table-wrapper { overflow-x: auto; background: var(--card-bg); border-radius: 12px; }
+table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 850px; }
+th, td { border: 1px solid var(--border); padding: 12px; text-align: center; }
+
+.sticky-col, td:first-child {
+    position: sticky; left: 0;
+    background-color: #111827 !important;
+    z-index: 10; border-right: 2px solid var(--accent);
 }
+th.sticky-col { z-index: 11; background-color: #000 !important; }
 
-/* --- MODAL --- */
+.materia-card { padding: 3px; border-radius: 4px; color: #000; font-weight: bold; font-size: 0.6rem; }
+
+/* Summary & Tasks */
+.summary-container { display: flex; gap: 15px; margin-bottom: 20px; }
+.summary-item { background: var(--card-bg); flex: 1; padding: 15px; border-radius: 10px; border: 1px solid var(--border); text-align: center; }
+.summary-label { display: block; font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; }
+.summary-value { font-size: 1.5rem; font-weight: bold; color: var(--accent); }
+
+.task-input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+.task-input-group input { flex: 1; background: var(--card-bg); border: 1px solid var(--border); color: white; padding: 12px; border-radius: 8px; }
+.task-input-group button { background: var(--accent); border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; }
+
+.task-list { list-style: none; padding: 0; }
+.task-item { background: var(--card-bg); padding: 12px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; border: 1px solid var(--border); align-items: center; }
+.task-item.done { opacity: 0.5; text-decoration: line-through; }
+.task-item i { color: #f87171; cursor: pointer; }
+
+/* Modal */
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; place-items: center; }
-.modal-content { background: var(--card-bg); padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; border: 1px solid var(--border); }
+.modal-content { background: var(--card-bg); padding: 20px; border-radius: 12px; width: 90%; max-width: 400px; }
+.modal-content select, .modal-content input { width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; color: white; border: 1px solid var(--border); border-radius: 5px; }
+.modal-buttons { display: flex; gap: 10px; margin-top: 10px; }
+.btn-save { flex: 1; background: var(--accent); border: none; padding: 10px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+.btn-cancel { flex: 1; background: #4b5563; border: none; color: white; padding: 10px; border-radius: 5px; cursor: pointer; }
+
+@media (max-width: 500px) {
+    body { flex-direction: column; }
+    .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+    .sidebar ul { display: flex; gap: 10px; overflow-x: auto; }
+}
