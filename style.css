@@ -33,9 +33,9 @@ body { display: flex; margin: 0; min-height: 100vh; background: var(--main-bg); 
 .event-item { font-size: 0.65rem; padding: 2px 5px; border-radius: 3px; font-weight: 600; color: #000; margin-bottom: 2px; }
 
 /* Sticky Table */
-.table-wrapper { overflow-x: auto; background: var(--card-bg); border-radius: 12px; }
-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 850px; }
-th, td { border: 1px solid var(--border); padding: 12px; text-align: center; }
+.table-wrapper { overflow-x: auto; background: var(--card-bg); border-radius: 6px; }
+table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 600px; }
+th, td { border: 1px solid var(--border); padding: 6px; text-align: center; }
 
 .sticky-col, td:first-child {
     position: sticky; left: 0;
