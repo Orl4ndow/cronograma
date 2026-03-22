@@ -76,7 +76,7 @@ th.sticky-col { z-index: 11; background-color: #000 !important; }
     .sidebar ul { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
     .sidebar li { white-space: nowrap; padding: 8px 12px; font-size: 0.8rem; margin-bottom: 0; }
     
-    .content { padding: 10px; }
+    .content { padding: 5px; }
 
     /* Redução da largura mínima para caber mais colunas */
     table { min-width: 400px !important; }
@@ -90,14 +90,14 @@ th.sticky-col { z-index: 11; background-color: #000 !important; }
 
     /* Coluna de Horários mais estreita */
     .sticky-col, td:first-child {
-        min-width: 60px !important;
-        font-size: 0.6rem !important;
+        min-width: 30px !important;
+        font-size: 0.3rem !important;
     }
 
     /* Ajuste do card de matéria para ocupar menos espaço */
     .materia-card {
-        padding: 3px !important;
-        font-size: 0.6rem !important;
+        padding: 1px !important;
+        font-size: 0.3rem !important;
         line-height: 1.1;
     }
 
