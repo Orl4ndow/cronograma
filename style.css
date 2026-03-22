@@ -79,25 +79,25 @@ th.sticky-col { z-index: 11; background-color: #000 !important; }
     .content { padding: 5px; }
 
     /* Redução da largura mínima para caber mais colunas */
-    table { min-width: 500px !important; }
+    table { min-width: 850px !important; }
 
     /* Redução de fonte e padding nas células */
     th, td { 
-        padding: 5px !important; 
+        padding: 6px !important; 
         font-size: 0.65rem !important; 
         height: auto !important;
     }
 
     /* Coluna de Horários mais estreita */
     .sticky-col, td:first-child {
-        min-width: 40px !important;
-        font-size: 0.4rem !important;
+        min-width: 60px !important;
+        font-size: 0.6rem !important;
     }
 
     /* Ajuste do card de matéria para ocupar menos espaço */
     .materia-card {
-        padding: 1px !important;
-        font-size: 0.3rem !important;
+        padding: 3px !important;
+        font-size: 0.6rem !important;
         line-height: 1.1;
     }
 
