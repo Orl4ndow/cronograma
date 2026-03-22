@@ -44,7 +44,7 @@ th, td { border: 1px solid var(--border); padding: 12px; text-align: center; }
 }
 th.sticky-col { z-index: 11; background-color: #000 !important; }
 
-.materia-card { padding: 6px; border-radius: 4px; color: #000; font-weight: bold; font-size: 0.75rem; }
+.materia-card { padding: 3px; border-radius: 4px; color: #000; font-weight: bold; font-size: 0.6rem; }
 
 /* Summary & Tasks */
 .summary-container { display: flex; gap: 15px; margin-bottom: 20px; }
@@ -69,7 +69,7 @@ th.sticky-col { z-index: 11; background-color: #000 !important; }
 .btn-save { flex: 1; background: var(--accent); border: none; padding: 10px; border-radius: 5px; font-weight: bold; cursor: pointer; }
 .btn-cancel { flex: 1; background: #4b5563; border: none; color: white; padding: 10px; border-radius: 5px; cursor: pointer; }
 
-@media (max-width: 768px) {
+@media (max-width: 500px) {
     body { flex-direction: column; }
     .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
     .sidebar ul { display: flex; gap: 10px; overflow-x: auto; }
