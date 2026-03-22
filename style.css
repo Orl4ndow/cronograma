@@ -76,14 +76,14 @@ th.sticky-col { z-index: 11; background-color: #000 !important; }
     .sidebar ul { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
     .sidebar li { white-space: nowrap; padding: 8px 12px; font-size: 0.8rem; margin-bottom: 0; }
     
-    .content { padding: 5px; }
+    .content { padding: 10px; }
 
     /* Redução da largura mínima para caber mais colunas */
-    table { min-width: 850px !important; }
+    table { min-width: 400px !important; }
 
     /* Redução de fonte e padding nas células */
     th, td { 
-        padding: 6px !important; 
+        padding: 5px !important; 
         font-size: 0.65rem !important; 
         height: auto !important;
     }
