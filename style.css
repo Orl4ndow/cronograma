@@ -69,8 +69,39 @@ th.sticky-col { z-index: 11; background-color: #000 !important; }
 .btn-save { flex: 1; background: var(--accent); border: none; padding: 10px; border-radius: 5px; font-weight: bold; cursor: pointer; }
 .btn-cancel { flex: 1; background: #4b5563; border: none; color: white; padding: 10px; border-radius: 5px; cursor: pointer; }
 
+/* --- AJUSTES MOBILE DEFINITIVOS --- */
 @media (max-width: 768px) {
     body { flex-direction: column; }
-    .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
-    .sidebar ul { display: flex; gap: 10px; overflow-x: auto; }
+    .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 10px; }
+    .sidebar ul { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+    .sidebar li { white-space: nowrap; padding: 8px 12px; font-size: 0.8rem; margin-bottom: 0; }
+    
+    .content { padding: 10px; }
+
+    /* Redução da largura mínima para caber mais colunas */
+    table { min-width: 400px !important; }
+
+    /* Redução de fonte e padding nas células */
+    th, td { 
+        padding: 5px !important; 
+        font-size: 0.65rem !important; 
+        height: auto !important;
+    }
+
+    /* Coluna de Horários mais estreita */
+    .sticky-col, td:first-child {
+        min-width: 60px !important;
+        font-size: 0.6rem !important;
+    }
+
+    /* Ajuste do card de matéria para ocupar menos espaço */
+    .materia-card {
+        padding: 3px !important;
+        font-size: 0.6rem !important;
+        line-height: 1.1;
+    }
+
+    /* Ajuste do calendário mensal para celular */
+    .calendar-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .day-card { min-height: 60px; padding: 4px; font-size: 0.7rem; }
 }
