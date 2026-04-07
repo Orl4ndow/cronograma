@@ -16,7 +16,7 @@ const db = getFirestore(app);
 let currentDate = new Date();
 let selectedDay = null;
 const horarios = ["M0 - (05:00 - 06:00)", "M1 - (06:00 - 07:00)", "M2 - (07:00 - 08:00)", "M3 - (08:00 - 09:00)", "M4 - (09:00 - 10:00)", "M5 - (10:00 - 11:00)", "M6 - (11:00 - 12:00)", "T1 - (12:00 - 13:00)", "T2 - (13:00 - 14:00)", "T3 - (14:00 - 15:00)", "T4 - (15:00 - 16:00)", "T5 - (16:00 - 17:00)", "T6 - (17:00 - 18:00)", "N1 - (18:00 - 19:00)", "N2 - (19:00 - 20:00)", "N3 - (20:00 - 21:00)", "N4 - (21:00 - 22:00)", "N5 - (22:00 - 23:00)"];
-const diasSemana = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
+const diasSemana = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
 
 // FUNÇÃO DE COR AUTOMÁTICA
 function getMateriaColor(name) {
